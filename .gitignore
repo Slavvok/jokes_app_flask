@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+app/__pycache__/
+app/db.sqlite
+app/test.sqlite
+venv/
+main.ini
+main.sock
+.idea/
+logs/logs.log
+
