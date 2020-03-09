@@ -1,16 +1,14 @@
 from app import create_app, db
 from app.models import User
 import unittest
-from app.config import TestConfig
+from config import TestConfig
 from app.views import auth, jokes
-
-testconf = TestConfig
 
 
 class JokesAppTestCase(unittest.TestCase):
 
     def setUp(self):
-        app = create_app(testconf)
+        app = create_app(TestConfig)
         app.register_blueprint(auth.auth, url_prefix='/auth')
         app.register_blueprint(jokes.app)
         self.app = app.test_client()

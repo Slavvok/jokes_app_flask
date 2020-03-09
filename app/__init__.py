@@ -42,10 +42,12 @@ migrate = Migrate(app, db)
 
 
 def create_app(conf=Config):
+    """Function for testing"""
     app = Flask(__name__)
     app.config.from_object(conf)
     login_manager.init_app(app)
     db.init_app(app)
     return app
+
 
 from app import models
