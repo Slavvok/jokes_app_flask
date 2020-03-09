@@ -1,9 +1,8 @@
 *.pyc
 __pycache__/
-app/__pycache__/
-app/db.sqlite
-app/test.sqlite
+*.sqlite
 venv/
+migrations/
 main.ini
 main.sock
 .idea/
