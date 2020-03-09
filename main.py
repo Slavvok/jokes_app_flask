@@ -8,5 +8,4 @@ app.register_blueprint(jokes.app)
 from app.models import Joke, User
 
 if __name__ == '__main__':
-	app.run()
-
+    app.run()
