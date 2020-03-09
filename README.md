@@ -13,3 +13,10 @@ App endpoints:
    PUT /update-joke {id: id, joke: joke}
    POST /remove-joke {id: id}
 ```
+
+Initial start:
+```
+   flask db init
+   flask db migrate -m "First migration"
+   flask db upgrade
+```
