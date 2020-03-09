@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from app.config import Config
+from flask_migrate import Migrate
+from config import Config
 from logging.config import dictConfig
 
-db = SQLAlchemy()
 login_manager = LoginManager()
 
 dictConfig({
@@ -32,6 +32,13 @@ dictConfig({
             },
         }
     })
+
+
+app = Flask(__name__)
+app.config.from_object(Config)
+login_manager.init_app(app)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
 def create_app(conf=Config):

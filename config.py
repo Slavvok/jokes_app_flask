@@ -7,12 +7,14 @@ class Config:
     DATABASE = 'db.sqlite'
     DEBUG = True
     SECRET_KEY = 'dsasdfdfadfadsfa'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'\
+        .format(os.path.join(basedir, 'db.sqlite'))
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestConfig:
     SECRET_KEY = 'dsasdfdfadfadsfa'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.sqlite'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'\
+        .format(os.path.join(basedir, 'test.sqlite'))
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     TESTING = True
