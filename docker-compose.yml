@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  jokes_app_flask:
+    build:
+      context: .
+    command: gunicorn -b :8080 wsgi:app
+    environment:
+      - FLASK_APP="main.py"
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
