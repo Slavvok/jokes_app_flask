@@ -73,7 +73,7 @@ def get_joke(pk):
 @logging
 def update_joke(pk):
     if request.method == 'PUT':
-        new_joke = request.form['joke']
+        new_joke = request.json['joke']
         item = Joke.query.filter_by(id=pk, user_id=current_user.id).first()
         if item:
             old_joke = item.joke

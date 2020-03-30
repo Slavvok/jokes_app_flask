@@ -16,25 +16,28 @@ def load_user(user_id):
 
 @auth.route('/registration', methods=['POST', 'GET'])
 def register():
-    username = request.form['username']
-    password = request.form['password']
-    email = request.form['email']
-    if not (db.session.query(User).filter_by(name=username).first()
-            and db.session.query(User).filter_by(email=email).first()):
-        u = User(username, email)
-        u.generate_hash(password)
-        db.session.add(u)
-        db.session.commit()
-    else:
-        return simple_message("User with that name/email already exists", 403)
-    return simple_message(f"User {u.name} was created", 201)
+    if request.method == 'POST':
+        data = request.json
+        username = data['username']
+        password = data['password']
+        email = data['email']
+        if not (db.session.query(User).filter_by(name=username).first()
+                and db.session.query(User).filter_by(email=email).first()):
+            u = User(username, email)
+            u.generate_hash(password)
+            db.session.add(u)
+            db.session.commit()
+        else:
+            return simple_message("User with that name/email already exists", 403)
+        return simple_message(f"User {u.name} was created", 201)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        data = request.json
+        username = data['username']
+        password = data['password']
         user = db.session.query(User).filter(User.name == username).first()
         if user and user.check_password(password):
             login_user(user)
