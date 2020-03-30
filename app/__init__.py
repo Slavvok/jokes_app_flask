@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_cors import CORS
 from config import Config
 from logging.config import dictConfig
 
@@ -35,6 +36,7 @@ dictConfig({
 
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(Config)
 login_manager.init_app(app)
 db = SQLAlchemy(app)
