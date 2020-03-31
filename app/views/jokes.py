@@ -6,16 +6,17 @@ from flask import request, Blueprint, make_response, request, jsonify
 from flask_login import login_user, current_user, login_required
 from utils import logging
 
-app = Blueprint('app', __name__)
+jokes = Blueprint('jokes', __name__)
 
 
-@app.errorhandler(404)
+
+@jokes.errorhandler(404)
 def joke_404(pk):
     message = f"There is no such joke with id {pk}"
     return simple_message(message, 404)
 
 
-@app.route('/')
+@jokes.route('/')
 def index():
     if current_user.is_authenticated:
         return make_response(jsonify({"user": current_user.name, "id": current_user.id}))
@@ -28,7 +29,8 @@ def index():
 #     db.session.remove()
 
 
-@app.route("/generate-joke", methods=['GET', 'POST'])
+
+@jokes.route("/generate-joke", methods=['GET', 'POST'])
 @login_required
 @logging
 def create_joke():
@@ -47,7 +49,7 @@ def create_joke():
         return make_response(jsonify(resp), 201)
 
 
-@app.route("/get-jokes-list", methods=['GET'])
+@jokes.route("/get-jokes-list", methods=['GET'])
 @login_required
 @logging
 def get_jokes_list():
@@ -56,7 +58,7 @@ def get_jokes_list():
         return make_response(jsonify(Joke.to_json_list(jokes_list)))
 
 
-@app.route("/get-joke/<int:pk>", methods=['GET'])
+@jokes.route("/get-joke/<int:pk>", methods=['GET'])
 @login_required
 @logging
 def get_joke(pk):
@@ -68,7 +70,7 @@ def get_joke(pk):
             return joke_404(pk)
 
 
-@app.route("/update-joke/<int:pk>", methods=['GET', 'PUT'])
+@jokes.route("/update-joke/<int:pk>", methods=['GET', 'PUT'])
 @login_required
 @logging
 def update_joke(pk):
@@ -86,7 +88,7 @@ def update_joke(pk):
             return joke_404(pk)
 
 
-@app.route("/remove-joke/<int:pk>", methods=['GET', 'POST'])
+@jokes.route("/remove-joke/<int:pk>", methods=['GET', 'POST'])
 @login_required
 @logging
 def remove_joke(pk):

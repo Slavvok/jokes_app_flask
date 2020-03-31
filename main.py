@@ -3,7 +3,7 @@ from app.views import auth, jokes
 
 
 app.register_blueprint(auth.auth, url_prefix='/auth')
-app.register_blueprint(jokes.app)
+app.register_blueprint(jokes.jokes)
 
 from app.models import Joke, User
 
