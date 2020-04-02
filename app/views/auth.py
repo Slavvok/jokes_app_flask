@@ -3,8 +3,10 @@ from app.models import User
 from app import login_manager
 from utils import simple_message
 
-from flask import request, Blueprint, url_for, redirect
+from flask import request, Blueprint, url_for, redirect, jsonify
 from flask_login import login_user, logout_user
+from flask_jwt_extended import create_access_token, create_refresh_token, \
+    jwt_refresh_token_required, get_jwt_identity
 
 auth = Blueprint('auth', __name__)
 
@@ -49,3 +51,29 @@ def logout():
     logout_user()
     return redirect(url_for('app.index'))
 
+
+@auth.route('/jwt', methods=['POST'])
+def login_jwt():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    user = db.session.query(User).filter(User.name == username).first()
+    if user and user.check_password(password):
+        access_token = create_access_token(identity=user.id)
+        refresh_token = create_refresh_token(identity=user.id)
+        return jsonify(access_token=access_token,
+                       refresh_token=refresh_token), 200
+
+
+@auth.route('/refresh', methods=['POST'])
+@jwt_refresh_token_required
+def refresh():
+    current_user = get_jwt_identity()
+    ret = {
+        'access_token': create_access_token(identity=current_user),
+    }
+    return jsonify(ret), 200
+
+
+def identity(payload):
+    user_id = payload['identity']
+    return db.session.query(User).filter(User.id == user_id).first()
