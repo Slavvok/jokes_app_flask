@@ -5,18 +5,15 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    DATABASE = 'db.sqlite'
     DEBUG = True
     SECRET_KEY = 'dsasdfdfadfadsfa'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'\
-        .format(os.path.join(basedir, 'db.sqlite'))
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_EXPIRATION_DELTA = datetime.timedelta(minutes=30)
 
 
-class TestConfig:
+class TestConfig(Config):
     SECRET_KEY = 'dsasdfdfadfadsfa'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'\
-        .format(os.path.join(basedir, 'test.sqlite'))
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL_TEST']
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
