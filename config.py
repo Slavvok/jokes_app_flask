@@ -17,3 +17,12 @@ class TestConfig(Config):
     # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL_TEST']
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
+
+
+class ProductionConfig:
+    DEBUG = False
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
