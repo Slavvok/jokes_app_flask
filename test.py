@@ -10,7 +10,7 @@ class JokesAppTestCase(unittest.TestCase):
     def setUp(self):
         app = create_app(TestConfig)
         app.register_blueprint(auth.auth, url_prefix='/auth')
-        app.register_blueprint(jokes.app)
+        app.register_blueprint(jokes.jokes)
         self.app = app.test_client()
         app.app_context().push()
         db.create_all()

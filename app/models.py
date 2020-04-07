@@ -30,14 +30,14 @@ class User(db.Model, UserMixin):
         self.email = email
 
     def generate_hash(self, password):
-        self._salt = os.urandom(16)
-        self._password_hash = hashlib.pbkdf2_hmac('sha256', password.encode(),
-                                                  self._salt, 10000)
+        self._salt = os.urandom(16).hex()
+        self._password_hash = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'),
+                                                  bytes.fromhex(self._salt), 10000).hex()
 
     def check_password(self, password):
         return hmac.compare_digest(
             self._password_hash,
-            hashlib.pbkdf2_hmac('sha256', password.encode(), self._salt, 10000)
+            hashlib.pbkdf2_hmac('sha256', password.encode(), bytes.fromhex(self._salt), 10000).hex()
         )
 
     def __repr__(self):
