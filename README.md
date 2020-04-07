@@ -1,17 +1,18 @@
 Authentication: 
 ```
-    POST /auth/login {username: 'username', password: 'password'}
-    POST /auth/logout 
-    POST /auth/registration {username: 'username', password: 'password', email:'email@email.com'}
+   POST /auth/registration {username: 'username', password: 'password', email:'email@email.com'}
+   POST /auth/jwt {username: 'username', password: 'password'} - get access_token
+   POST /auth/logout 
 ```
 
-App endpoints:
+App: ( Headers: {Authentication: "Bearer <access_token>"} )
+
 ```
-   POST /generate-joke 
-   GET /get-joke {id: id}
-   GET /get-jokes-list 
-   PUT /update-joke {id: id, joke: joke}
-   POST /remove-joke {id: id}
+   POST /generate-joke
+   GET /get-joke/<id>
+   GET /get-jokes-list
+   POST /update-joke/<id>
+   POST /remove-joke/<id>
 ```
 
 Initial start:
