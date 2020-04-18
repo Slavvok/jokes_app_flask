@@ -29,22 +29,22 @@ def register():
         return simple_message(f"User {u.name} was created", 201)
 
 
-@auth.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        data = request.json
-        username = data['username']
-        password = data['password']
-        user = db.session.query(User).filter(User.name == username).first()
-        if user and user.check_password(password):
-            login_user(user)
-        return redirect(url_for('app.index'))
-
-
-@auth.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('app.index'))
+# @auth.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         data = request.json
+#         username = data['username']
+#         password = data['password']
+#         user = db.session.query(User).filter(User.name == username).first()
+#         if user and user.check_password(password):
+#             login_user(user)
+#         return redirect(url_for('jokes.index'))
+#
+#
+# @auth.route('/logout')
+# def logout():
+#     logout_user()
+#     return redirect(url_for('jokes.index'))
 
 
 @auth.route('/jwt', methods=['POST'])
