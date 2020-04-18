@@ -1,16 +1,13 @@
-from app import db, app
+from app import db
 from app.models import Joke
 from utils import simple_message
 import requests
-from flask import request, Blueprint, make_response, request, jsonify
+from flask import Blueprint, make_response, request, jsonify
 from flask_jwt import current_identity
-from flask_jwt_extended import jwt_required, JWTManager, get_jwt_identity, create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from utils import logging
-from app.views.auth import login_jwt, identity
 
 jokes = Blueprint('jokes', __name__)
-
-jwt = JWTManager(app)
 
 
 @jokes.errorhandler(404)
@@ -19,12 +16,12 @@ def joke_404(pk):
     return simple_message(message, 404)
 
 
-# @jokes.route('/')
-# def index():
-#     if current_user.is_authenticated:
-#         return make_response(jsonify({"user": current_identity.name, "id": current_identity.id}))
-#     else:
-#         return make_response("Please, log in", 401)
+@jokes.route('/')
+def index():
+    if current_identity:
+        return make_response(jsonify({"user": current_identity.name, "id": current_identity.id}))
+    else:
+        return simple_message("Please, log in", 401)
 
 
 # @app.teardown_appcontext

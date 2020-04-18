@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from config import Config
 from logging.config import dictConfig
 
@@ -35,20 +36,21 @@ dictConfig({
     })
 
 
-app = Flask(__name__)
-CORS(app)
-app.config.from_object(Config)
-login_manager.init_app(app)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db = SQLAlchemy()
+migrate = Migrate()
+jwt = JWTManager()
+login = LoginManager()
 
 
 def create_app(conf=Config):
     """Function for testing"""
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(conf)
-    login_manager.init_app(app)
     db.init_app(app)
+    migrate.init_app(app, db)
+    login.init_app(app)
+    jwt.init_app(app)
     return app
 
 
