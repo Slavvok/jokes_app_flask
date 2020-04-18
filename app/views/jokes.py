@@ -2,15 +2,12 @@ from app import db
 from app.models import Joke
 from utils import simple_message
 import requests
-from flask import request, Blueprint, make_response, request, jsonify
+from flask import Blueprint, make_response, request, jsonify
 from flask_jwt import current_identity
-from flask_jwt_extended import jwt_required, JWTManager, get_jwt_identity, create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from utils import logging
-from app.views.auth import login_jwt, identity
 
 jokes = Blueprint('jokes', __name__)
-
-jwt = JWTManager(app)
 
 
 @jokes.errorhandler(404)

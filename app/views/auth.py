@@ -2,7 +2,6 @@ from app import db
 from app.models import User
 from app import login
 from utils import simple_message
-
 from flask import request, Blueprint, url_for, redirect, jsonify
 from flask_login import login_user, logout_user
 from flask_jwt_extended import create_access_token, create_refresh_token, \
