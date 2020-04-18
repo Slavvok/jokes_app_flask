@@ -1,6 +1,6 @@
 from app import db
 from app.models import User
-from app import login_manager
+from app import login
 from utils import simple_message
 
 from flask import request, Blueprint, url_for, redirect, jsonify
@@ -9,6 +9,11 @@ from flask_jwt_extended import create_access_token, create_refresh_token, \
     jwt_refresh_token_required, get_jwt_identity
 
 auth = Blueprint('auth', __name__)
+
+
+# @login.user_loader
+# def load_user(user_id):
+#     return db.session.query(User).filter_by(id=user_id).first()
 
 
 @auth.route('/registration', methods=['POST', 'GET'])
