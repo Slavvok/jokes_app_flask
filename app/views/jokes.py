@@ -19,12 +19,12 @@ def joke_404(pk):
     return simple_message(message, 404)
 
 
-# @jokes.route('/')
-# def index():
-#     if current_user.is_authenticated:
-#         return make_response(jsonify({"user": current_identity.name, "id": current_identity.id}))
-#     else:
-#         return make_response("Please, log in", 401)
+@jokes.route('/')
+def index():
+    if current_identity:
+        return make_response(jsonify({"user": current_identity.name, "id": current_identity.id}))
+    else:
+        return simple_message("Please, log in", 401)
 
 
 # @app.teardown_appcontext
