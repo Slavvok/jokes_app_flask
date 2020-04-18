@@ -1,4 +1,4 @@
-from app import db, app
+from app import db
 from app.models import Joke
 from utils import simple_message
 import requests

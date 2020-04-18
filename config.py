@@ -14,7 +14,7 @@ class Config:
 
 class TestConfig(Config):
     SECRET_KEY = 'dsasdfdfadfadsfa'
-    # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL_TEST']
+    SQLALCHEMY_DATABASE_URI = os.environ['TEST_DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
 
