@@ -9,7 +9,7 @@ services:
     volumes:
       - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
     environment:
-      - POSTGRES_PASSWORD=docker
+      - POSTGRES_PASSWORD=jokes_app
 
   jokes_app_flask:
     container_name: jokes_app
