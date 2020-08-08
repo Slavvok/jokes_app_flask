@@ -1,0 +1,40 @@
+image:
+  docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+#    # this configures Django application to use attached postgres database that is run on `postgres` host
+#    - export DATABASE_URL_TEST=postgres://postgres:docker@localhost:5432/jokes_app_test
+#    - apt-get update -qy
+#    - apt-get install -y python-dev python-pip
+#    - pip install -r requirements.txt
+    - docker-compose up --build
+    - docker exec -it jokes_app bash python tests.py
+    - docker-compose down
+
+#staging:
+#  stage: deploy
+#  script:
+#    - apt-get update -qy
+#    - apt-get install -y ruby-dev
+#    - gem install dpl
+#    - dpl --provider=heroku --app=gitlab-ci-python-test-staging --api-key=$HEROKU_STAGING_API_KEY
+#  only:
+#    - master
+#
+#production:
+#  stage: deploy
+#  script:
+#    - apt-get update -qy
+#    - apt-get install -y ruby-dev
+#    - gem install dpl
+#    - dpl --provider=heroku --app=gitlab-ci-python-test-prod --api-key=$HEROKU_PRODUCTION_API_KEY
+#  only:
+#    - tags

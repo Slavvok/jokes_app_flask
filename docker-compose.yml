@@ -1,13 +1,37 @@
 version: '3'
 
 services:
+  pg-docker:
+    image: postgres:12.0-alpine
+    networks:
+      - 'jokes_net'
+    volumes:
+      - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
+
   jokes_app_flask:
+    container_name: jokes_app
     build:
       context: .
       args:
         DATABASE_URL: ${DATABASE_URL}
-    command: gunicorn -b :8080 wsgi:app
+        TEST_DATABASE_URL: ${TEST_DATABASE_URL}
+    command: gunicorn -b :8090 wsgi:app
     ports:
-      - "8080:8080"
-    expose:
-      - "8080"
+      - "8090:8090"
+    networks:
+      - 'jokes_net'
+    depends_on:
+      - "pg-docker"
+#    expose:
+#      - "8080"
+
+  nginx:
+      build: ./web
+      ports:
+        - 80:80
+      depends_on:
+        - "jokes_app_flask"
+
+networks:
+  jokes_net:
+    external: true
