@@ -17,7 +17,6 @@ test:
 #    - pip install -r requirements.txt
     - apk add --no-cache docker-compose
     - docker-compose up --build
-    - docker exec -it jokes_app bash python tests.py
     - docker-compose down
 
 #staging:
