@@ -15,7 +15,7 @@ services:
       args:
         DATABASE_URL: ${DATABASE_URL}
         TEST_DATABASE_URL: ${TEST_DATABASE_URL}
-    command: gunicorn -b :8090 wsgi:app
+    command: sh -c "python -m flask db migrate && python tests.py && gunicorn -b :8090 wsgi:app"
     ports:
       - "8090:8090"
     networks:
