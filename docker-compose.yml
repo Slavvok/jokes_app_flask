@@ -24,6 +24,8 @@ services:
       - 'jokes_net'
     depends_on:
       - "pg-docker"
+    links:
+      - "pg-docker:pg-docker"
 #    expose:
 #      - "8080"
 
