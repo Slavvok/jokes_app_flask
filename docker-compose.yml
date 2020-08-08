@@ -34,4 +34,4 @@ services:
 
 networks:
   jokes_net:
-    external: true
+    name: "jokes_net"
