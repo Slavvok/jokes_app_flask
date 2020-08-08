@@ -1,13 +1,14 @@
 version: '3'
 
 services:
-#  pg-docker:
-#    image: postgres:12.0-alpine
-#    container_name: "pg-docker"
+  pg-docker:
+    image: postgres:12.0-alpine
+    container_name: "pg-docker"
+    ports: "5432:5432"
 #    networks:
 #      - 'jokes_net'
-#    volumes:
-#      - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
+    volumes:
+      - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
 
   jokes_app_flask:
     container_name: jokes_app
@@ -19,12 +20,12 @@ services:
     command: sh -c "python tests.py && gunicorn -b :8090 wsgi:app"
     ports:
       - "8090:8090"
-    networks:
-      - 'jokes_net'
-#    depends_on:
-#      - "pg-docker"
-#    links:
-#      - "pg-docker:pg-docker"
+#    networks:
+#      - 'jokes_net'
+    depends_on:
+      - "pg-docker"
+    links:
+      - "pg-docker:pg-docker"
 #    expose:
 #      - "8080"
 
@@ -35,6 +36,5 @@ services:
       depends_on:
         - "jokes_app_flask"
 
-networks:
-  jokes_net:
-    external: true
+#networks:
+#  jokes_net:
