@@ -3,6 +3,7 @@ version: '3'
 services:
   pg-docker:
     image: postgres:12.0-alpine
+    container_name: "pg-docker"
     networks:
       - 'jokes_net'
     volumes:
