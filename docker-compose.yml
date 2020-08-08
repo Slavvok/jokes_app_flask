@@ -34,4 +34,3 @@ services:
 
 networks:
   jokes_net:
-    name: "jokes_net"
