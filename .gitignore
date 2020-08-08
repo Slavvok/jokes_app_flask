@@ -6,5 +6,5 @@ migrations/
 main.ini
 main.sock
 .idea/
-logs/logs.log
+*.log
 

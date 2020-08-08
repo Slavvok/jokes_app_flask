@@ -22,7 +22,7 @@ dictConfig({
             'default': {
                 'level': 'INFO',
                 'class': 'logging.FileHandler',
-                'filename': 'logs/logs.log',
+                'filename': 'logs.log',
                 'formatter': 'standard',
             },
         },
