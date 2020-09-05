@@ -1,15 +1,15 @@
 version: '3'
 
 services:
-#  pg-docker:
-#    image: postgres:12.0-alpine
-#    container_name: "pg-docker"
-#    ports:
-#      - "5432:5432"
-#    networks:
-#      - 'jokes_net'
-#    volumes:
-#      - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
+  postgres:
+    image: postgres:12.0-alpine
+    container_name: "postgres"
+    ports:
+      - "5432:5432"
+    networks:
+      - 'jokes_net'
+    volumes:
+      - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
 
   jokes_app_flask:
     container_name: jokes_app
