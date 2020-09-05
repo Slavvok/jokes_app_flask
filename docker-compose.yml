@@ -14,7 +14,6 @@ services:
     environment:
       - POSTGRES_USER=jokes_app
       - POSTGRES_PASSWORD=jokes_app
-      - POSTGRES_DB=jokes_app_test
 
   jokes_app_flask:
     container_name: jokes_app
