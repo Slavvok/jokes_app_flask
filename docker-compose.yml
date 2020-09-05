@@ -18,15 +18,15 @@ services:
       args:
         DATABASE_URL: ${DATABASE_URL}
         TEST_DATABASE_URL: ${TEST_DATABASE_URL}
-    command: sh -c "python tests.py && gunicorn -b :8090 wsgi:app"
+    command: sh -c "gunicorn -b :8090 wsgi:app"
     ports:
       - "8090:8090"
+    links:
+      - "postgres:postgres"
 #    networks:
 #      - 'jokes_net'
 #    depends_on:
 #      - "pg-docker"
-#    links:
-#      - "pg-docker:pg-docker"
 #    expose:
 #      - "8080"
 
