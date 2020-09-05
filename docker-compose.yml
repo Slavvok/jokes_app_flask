@@ -4,6 +4,7 @@ services:
   postgres:
     image: postgres:12.0-alpine
     container_name: "postgres"
+    hostname: "postgres"
     ports:
       - "5432:5432"
     networks:
