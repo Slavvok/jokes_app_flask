@@ -8,6 +8,6 @@ test:
   script:
     - apk add --no-cache docker-compose
     - docker-compose build
-    - docker-compose up postgres
+    - docker-compose up postgres -d
 #    - docker-compose up -d pg-docker
     - docker-compose run --rm jokes_app_flask python tests.py
