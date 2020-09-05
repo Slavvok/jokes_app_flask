@@ -23,8 +23,8 @@ services:
       - "8090:8090"
     links:
       - "postgres:postgres"
-#    networks:
-#      - 'jokes_net'
+    networks:
+      - 'jokes_net'
 #    depends_on:
 #      - "pg-docker"
 #    expose:
@@ -37,5 +37,5 @@ services:
 #      depends_on:
 #        - "jokes_app_flask"
 
-#networks:
-#  jokes_net:
+networks:
+  jokes_net:
