@@ -22,4 +22,4 @@ test:
 deploy:
   stage: deploy
   script:
-    - docker-compose up -d jokes_app_flask nginx
+    - docker-compose up
