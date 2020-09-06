@@ -1,11 +1,13 @@
 image: docker:latest
-
+services:
+  - docker:dind
 stages:
   - test
   - deploy
 
 test:
   stage: test
+  image: docker:latest
   services:
     - docker:dind
   variables:
@@ -21,6 +23,7 @@ test:
 
 deploy:
   stage: deploy
+  image: docker:latest
   services:
     - docker:dind
   script:
