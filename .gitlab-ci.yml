@@ -1,12 +1,13 @@
 image: docker:latest
-services:
-  - docker:dind
+
 stages:
   - test
   - deploy
 
 test:
   stage: test
+  services:
+    - docker:dind
   variables:
     POSTGRES_USER: "jokes_app"
     POSTGRES_PASSWORD: "jokes_app"
@@ -20,5 +21,7 @@ test:
 
 deploy:
   stage: deploy
+  services:
+    - docker:dind
   script:
     - docker-compose run -d jokes_app_flask nginx
