@@ -1,13 +1,25 @@
+image:
+  docker:latest
+services:
+  - docker:dind
+stages:
+  - test
+  - deploy
 
 test:
   stage: test
-  image:
-    docker:latest
-  services:
-    - docker:dind
+  variables:
+    POSTGRES_USER: "jokes_app"
+    POSTGRES_PASSWORD: "jokes_app"
+    POSTGRES_DB: "jokes_app_test"
   script:
     - apk add --no-cache docker-compose
     - docker-compose build
     - docker-compose up -d postgres
 #    - docker-compose up -d pg-docker
     - docker-compose run --rm jokes_app_flask python tests.py
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose run -d jokes_app_flask nginx
